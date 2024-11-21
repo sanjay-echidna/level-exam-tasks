@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<database xmlns="spryker:schema-01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed"
+          xsi:schemaLocation="spryker:schema-01 https://static.spryker.com/schema-01.xsd"
+          namespace="Orm\Zed\Company\Persistence" package="src.Orm.Zed.Company.Persistence">
+
+    <table name="spy_company_storage" allowPkInsert="true"  identifierQuoting="true" idMethod="native" phpName="SpyCompanyStorage">
+        
+        <!-- Primary Key -->
+        <column name="id" type="INTEGER" autoIncrement="true" primaryKey="true"/>
+
+        <!-- Foreign Key -->
+        <column name="fk_company" type="INTEGER" required="true"/>
+        <index name="spy_company_data_sync_storage-fk_company">
+            <index-column name="fk_company"/>
+        </index>
+
+        <!-- Other Columns -->
+        <!-- <column name="is_sending_to_queue" type="BOOLEAN" default="false"/> -->
+
+        <!-- Synchronization Behavior -->
+        <behavior name="synchronization">
+            <parameter name="resource" value="company"/>
+            <parameter name="locale" required="false"/>
+            <parameter name="key_suffix_column" value="fk_company"/>
+            <parameter name="queue_group" value="sync.storage.company"/>
+            <parameter name="queue_pool" value="synchronizationPool"/>
+        </behavior>
+
+        <!-- Timestampable Behavior -->
+        <behavior name="timestampable"/>
+    </table>
+</database>

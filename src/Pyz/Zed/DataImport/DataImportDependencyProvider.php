@@ -7,6 +7,7 @@
 
 namespace Pyz\Zed\DataImport;
 
+use Pyz\Zed\CustomCompanyData\Communication\Plugin\DataImport\CustomCompanyDataImportPlugin;
 use Spryker\Zed\BusinessOnBehalfDataImport\Communication\Plugin\DataImport\BusinessOnBehalfCompanyUserDataImportPlugin;
 use Spryker\Zed\CategoryDataImport\Communication\Plugin\CategoryDataImportPlugin;
 use Spryker\Zed\CategoryDataImport\Communication\Plugin\DataImport\CategoryStoreDataImportPlugin;
@@ -104,6 +105,11 @@ class DataImportDependencyProvider extends SprykerDataImportDependencyProvider
     /**
      * @var string
      */
+    public const FACADE_COMPANY = 'company facade';
+
+    /**
+     * @var string
+     */
     public const FACADE_PRODUCT_BUNDLE = 'product bundle facade';
 
     /**
@@ -147,6 +153,7 @@ class DataImportDependencyProvider extends SprykerDataImportDependencyProvider
 
         $container = $this->addAvailabilityFacade($container);
         $container = $this->addCategoryFacade($container);
+        $container = $this->addCompanyFacade($container);
         $container = $this->addProductBundleFacade($container);
         $container = $this->addProductRelationFacade($container);
         $container = $this->addProductSearchFacade($container);
@@ -237,6 +244,20 @@ class DataImportDependencyProvider extends SprykerDataImportDependencyProvider
     {
         $container->set(static::FACADE_CATEGORY, function (Container $container) {
             return $container->getLocator()->category()->facade();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addCompanyFacade(Container $container): Container
+    {
+        $container->set(static::FACADE_COMPANY, function (Container $container) {
+            return $container->getLocator()->company()->facade();
         });
 
         return $container;
@@ -368,6 +389,7 @@ class DataImportDependencyProvider extends SprykerDataImportDependencyProvider
             new ContentNavigationDataImportPlugin(),
             new CategoryStoreDataImportPlugin(),
             new ProductConfigurationDataImportPlugin(),
+            new CustomCompanyDataImportPlugin()
         ];
     }
 

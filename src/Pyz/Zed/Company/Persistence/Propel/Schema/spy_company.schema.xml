@@ -5,6 +5,7 @@
         <behavior name="event">
             <parameter name="spy_company_is_active" column="is_active"/>
             <parameter name="spy_company_status" column="status"/>
+            <parameter name="spy_company_all" column="*"/>
         </behavior>
     </table>
 
