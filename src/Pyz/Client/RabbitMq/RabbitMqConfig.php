@@ -7,6 +7,7 @@
 
 namespace Pyz\Client\RabbitMq;
 
+use Pyz\Shared\Company\CompanyConfig;
 use Spryker\Client\RabbitMq\RabbitMqConfig as SprykerRabbitMqConfig;
 use Spryker\Shared\AssetStorage\AssetStorageConfig;
 use Spryker\Shared\AvailabilityStorage\AvailabilityStorageConfig;
@@ -122,6 +123,7 @@ class RabbitMqConfig extends SprykerRabbitMqConfig
             ProductStorageConfig::PUBLISH_PRODUCT_ABSTRACT,
             ProductStorageConfig::PUBLISH_PRODUCT_CONCRETE,
             CustomerStorageConfig::PUBLISH_CUSTOMER_INVALIDATED,
+            CompanyConfig::PUBLISH_SPY_COMPANY_SYNC
         ];
     }
 
@@ -161,6 +163,7 @@ class RabbitMqConfig extends SprykerRabbitMqConfig
             SearchHttpConfig::SEARCH_HTTP_CONFIG_SYNC_QUEUE,
             MerchantStorageConfig::MERCHANT_SYNC_STORAGE_QUEUE,
             MerchantSearchConfig::SYNC_SEARCH_MERCHANT,
+            CompanyConfig::SYNC_SPY_COMPANY
         ];
     }
 

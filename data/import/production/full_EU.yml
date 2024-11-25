@@ -293,3 +293,6 @@ actions:
     source: data/import/common/AT/comment.csv
   - data_entity: mime-type
     source: data/import/common/common/mime_type.csv
+
+  - data_entity: custom-company-data
+    source: data/import/common/common/custom_company_data.csv

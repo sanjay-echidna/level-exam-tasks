@@ -7,6 +7,8 @@
 
 namespace Pyz\Zed\Publisher;
 
+use Pyz\Shared\Company\CompanyConfig;
+use Pyz\Zed\DataImport\Communication\Plugin\Publisher\CustomCompanyDataPublisherPlugin;
 use Spryker\Shared\GlossaryStorage\GlossaryStorageConfig;
 use Spryker\Shared\PublishAndSynchronizeHealthCheck\PublishAndSynchronizeHealthCheckConfig;
 use Spryker\Zed\AssetStorage\Communication\Plugin\Publisher\Asset\AssetDeletePublisherPlugin;
@@ -147,7 +149,20 @@ class PublisherDependencyProvider extends SprykerPublisherDependencyProvider
             $this->getProductMessageBrokerPlugins(),
             $this->getMerchantStoragePlugins(),
             $this->getMerchantSearchPlugins(),
+            $this->getCompanyPubisherPlugin(),
         );
+    }
+
+    /**
+     * @return array
+     */
+    protected function getCompanyPubisherPlugin(): array
+    {
+        return [
+            CompanyConfig::PUBLISH_SPY_COMPANY_SYNC => [
+                new CustomCompanyDataPublisherPlugin,
+            ],
+        ];
     }
 
     /**

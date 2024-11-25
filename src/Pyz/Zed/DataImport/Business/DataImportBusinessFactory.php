@@ -38,6 +38,7 @@ use Pyz\Zed\DataImport\Business\Model\CmsTemplate\CmsTemplateWriterStep;
 use Pyz\Zed\DataImport\Business\Model\Country\Repository\CountryRepository;
 use Pyz\Zed\DataImport\Business\Model\Country\Repository\CountryRepositoryInterface;
 use Pyz\Zed\DataImport\Business\Model\Currency\CurrencyWriterStep;
+use Pyz\Zed\DataImport\Business\Model\CustomCompany\CustomCompanyWriterStep;
 use Pyz\Zed\DataImport\Business\Model\Customer\CustomerWriterStep;
 use Pyz\Zed\DataImport\Business\Model\DataImporterConditional;
 use Pyz\Zed\DataImport\Business\Model\DataImporterDataSetWriterAwareConditional;
@@ -120,6 +121,7 @@ use Spryker\Zed\PriceProduct\Business\PriceProductFacadeInterface;
 use Spryker\Zed\ProductBundle\Business\ProductBundleFacadeInterface;
 use Spryker\Zed\Stock\Business\StockFacadeInterface;
 use Spryker\Zed\Store\Business\StoreFacadeInterface;
+use Pyz\Zed\Company\Business\CompanyFacadeInterface;
 
 /**
  * @method \Pyz\Zed\DataImport\DataImportConfig getConfig()
@@ -207,9 +209,23 @@ class DataImportBusinessFactory extends SprykerDataImportBusinessFactory
                 return $this->createNavigationImporter($dataImportConfigurationActionTransfer);
             case DataImportConfig::IMPORT_TYPE_NAVIGATION_NODE:
                 return $this->createNavigationNodeImporter($dataImportConfigurationActionTransfer);
+            // case DataImportConfig::IMPORT_TYPE_CUSTOM_COMPANY:
+            //     return $this->createCustomCompanyImporter($dataImportConfigurationActionTransfer);
             default:
                 return null;
         }
+    }
+
+    public function createCustomCompanyImporter($dataImportConfigurationActionTransfer): DataImporterInterface {
+        $dataImporter = $this->getCsvDataImporterFromConfig(
+            $this->getConfig()->buildImporterConfigurationByDataImportConfigAction($dataImportConfigurationActionTransfer),
+        );
+        $dataSetStepBroker = $this->createTransactionAwareDataSetStepBroker()
+            ->addStep(new CustomCompanyWriterStep());
+
+        $dataImporter->addDataSetStepBroker($dataSetStepBroker);
+
+        return $dataImporter;
     }
 
     /**
@@ -1745,5 +1761,13 @@ class DataImportBusinessFactory extends SprykerDataImportBusinessFactory
         array $defaultAttributes = [],
     ): ProductLocalizedAttributesExtractorStep {
         return new CombinedProductLocalizedAttributesExtractorStep($defaultAttributes);
+    }
+
+    /**
+     * @return \Pyz\Zed\Company\Business\CompanyFacadeInterface
+     */
+    protected function getCompanyFacade(): CompanyFacadeInterface
+    {
+        return $this->getProvidedDependency(DataImportDependencyProvider::FACADE_COMPANY);
     }
 }

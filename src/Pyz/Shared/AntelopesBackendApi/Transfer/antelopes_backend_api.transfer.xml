@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<transfers>
+    <transfer name="AntelopesBackendApiAttributes" strict="true">
+        <property name="idAntelope" type="int"/>
+        <property name="name" type="string"/>
+        <property name="typeId" type="int"/>
+        <property name="locationId" type="int"/>
+        <property name="age" type="int"/>
+        <property name="color" type="string"/>
+        <property name="weight" type="float"/>
+        <property name="gender" type="string"/>
+    </transfer>
+    <transfer name="AntelopeCriteria" strict="true">
+        <property name="idAntelope" type="int"/>
+        <property name="name" type="string"/>
+        <property name="typeId" type="int"/>
+        <property name="age" type="int"/>
+        <property name="color" type="string"/>
+        <property name="weight" type="float"/>
+        <property name="gender" type="string"/>
+    </transfer>
+</transfers>

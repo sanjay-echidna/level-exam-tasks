@@ -216,6 +216,11 @@ class DataImportConfig extends SprykerDataImportConfig
     protected const READ_COLLECTION_BATCH_SIZE = 500;
 
     /**
+     * @var string
+     */
+    public const IMPORT_TYPE_CUSTOM_COMPANY = 'custom-company-data';
+
+    /**
      * @return string|null
      */
     public function getDefaultYamlConfigPath(): ?string

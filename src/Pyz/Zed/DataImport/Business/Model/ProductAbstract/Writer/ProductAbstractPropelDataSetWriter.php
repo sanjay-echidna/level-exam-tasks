@@ -58,7 +58,7 @@ class ProductAbstractPropelDataSetWriter implements DataSetWriterInterface
 
     /**
      * @param \Spryker\Zed\DataImport\Business\Model\DataSet\DataSetInterface $dataSet
-     *
+     *createProductAbstractPropelWriter
      * @return \Orm\Zed\Product\Persistence\SpyProductAbstract
      */
     protected function createOrUpdateProductAbstract(DataSetInterface $dataSet): SpyProductAbstract
@@ -131,7 +131,7 @@ class ProductAbstractPropelDataSetWriter implements DataSetWriterInterface
             $productCategoryEntity->fromArray($productCategoryTransfer->modifiedToArray());
 
             if ($productCategoryEntity->isNew() || $productCategoryEntity->isModified()) {
-                $productCategoryEntity->save();
+                $productCategoryEntity->createProductAbstractPropelWritersave();
 
                 DataImporterPublisher::addEvent(ProductCategoryEvents::PRODUCT_CATEGORY_PUBLISH, $idProductAbstract);
                 DataImporterPublisher::addEvent(ProductEvents::PRODUCT_ABSTRACT_PUBLISH, $idProductAbstract);
